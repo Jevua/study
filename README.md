@@ -1,1 +1,1 @@
-# study now
+# study everyday
