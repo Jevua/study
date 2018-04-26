@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="HelloWorld" default="run" basedir=".">
+<property name="src" value="src"/>
+<target name="run">
+	<echo message="test ant echo, basedir=${basedir}" />
+	<echo>ant copy 复制test.txt文件到test/test1.txt</echo>
+	<echo>ant deletefile 删除test/test1.txt文件</echo>
+	<echo>ant createdir 创建test目录</echo>
+	<echo>ant deletedir 删除test目录</echo>
+	<echo>ant compile 将.java文件编译成.class文件</echo>
+	<echo>ant runclass 执行.class文件</echo>
+</target>
+<!-- 复制文件 -->
+<target name="copy" depends="createdir">
+	<copy file="test.txt" tofile="test/test1.txt" />
+</target>
+<!-- 删除文件 -->
+<target name="deletefile">
+	<delete file="test/test1.txt"/>
+</target>
+<target name="deleteclass">
+	<delete file="src/test.class"/>
+</target>
+<!-- 创建目录 -->
+<target name="createdir">
+	<mkdir dir="test"/>
+</target>
+<!-- 删除目录 -->
+<target name="deletedir">
+	<delete dir="test"/>
+</target>
+<!-- <javac>标签，用于将.java文件编译成.class文件： -->
+<target name="compile" depends="deleteclass">  
+        <javac srcdir="src" destdir="src" includeantruntime="false">
+			<classpath>
+				<fileset dir="src" includes="*.jar"></fileset>
+			</classpath>
+		</javac>
+</target>
+<!-- <java>标签，用于执行.class文件： -->
+<target name="runclass">  
+        <java classname="Test">  
+            <classpath>  
+                <pathelement path="src" />  
+            </classpath>
+			<classpath>
+				<fileset dir="src" includes="*.jar"></fileset>
+			</classpath>
+        </java>  
+</target>  
+<!-- <jar>标签，用于将java程序打包成jar文件： -->
+<target name="jar">  
+        <jar destfile="add.jar" basedir="src" includes="*.jar,*.class">
+		<manifest>  
+             <attribute name="Main-Class" value="Test" />
+        </manifest>
+        </jar>  
+</target>
+<target name="runjar">      
+        <java jar="add.jar" fork="true"/>      
+</target>
+
+<!--引入antcontrib的jar包，需要手动引入lib目录-->
+<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+<!--加载文件-->
+<loadfile property="file" srcfile="test.txt"/>
+
+<!--输出文件内容-->
+<target name="echo">
+<for param="line" list="${file}" delimiter="${line.separator}">
+  <sequential>
+	<echo>@{line}</echo>
+  </sequential>
+</for>
+</target>
+</project>
