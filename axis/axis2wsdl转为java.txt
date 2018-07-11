@@ -1,0 +1,1 @@
+wsdl2java.bat -uri http://10.6.135.5/iAppServices/iApp/ThirdDataServies.asmx?wsdl -o X:\axis -p com.bd.zd
