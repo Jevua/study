@@ -1,5 +1,8 @@
 # ActiveMq
 
+异步、解耦、流量削峰
+
+
 * 使用SpringBoot练习ActiveMq消息中间件
 
 1、首先是ActiveMQ的安装启动http://localhost:8161,用户密码都是admin
